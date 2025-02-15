@@ -32,7 +32,7 @@ if uploaded_file is not None:
         image_url = data["data"]["url"]
 
         # Show the uploaded image
-        st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
+        st.image(uploaded_file, caption="Uploaded Image", use_container_width=True)
 
         # Display the shareable link with a copy button
         st.success("Image uploaded successfully!")
