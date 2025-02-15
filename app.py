@@ -1,7 +1,6 @@
 import streamlit as st
 import requests
 import base64
-import pyperclip  # Clipboard library
 
 # Set ImgBB API Key
 IMGBB_API_KEY = "ec519cb1c1643a46e16f22fe58a256cb"
@@ -37,12 +36,10 @@ if uploaded_file is not None:
 
         # Display the shareable link
         st.success("Image uploaded successfully!")
-        url_box = st.text_input("Shareable Link:", image_url)
+        st.text_input("Shareable Link (Copy Manually):", image_url)
 
-        # Copy Button using pyperclip
-        if st.button("Copy URL"):
-            pyperclip.copy(image_url)  # Copies the link to clipboard
-            st.success("URL copied to clipboard!")
+        # Copy Button (Works natively in Streamlit)
+        st.code(image_url, language="")
 
     else:
         st.error("Failed to upload image. Please try again.")
