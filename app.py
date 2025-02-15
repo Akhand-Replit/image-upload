@@ -7,7 +7,7 @@ IMGBB_API_KEY = "ec519cb1c1643a46e16f22fe58a256cb"
 UPLOAD_URL = "https://api.imgbb.com/1/upload"
 
 # Streamlit UI
-st.title("Image Uploader to ImgBB")
+st.title("Genarate Image Link")
 
 # Upload Button
 uploaded_file = st.file_uploader("Upload an Image", type=["png", "jpg", "jpeg"])
@@ -36,7 +36,7 @@ if uploaded_file is not None:
 
         # Display the shareable link
         st.success("Image uploaded successfully!")
-        st.text_input("Shareable Link (Copy Manually):", image_url)
+        #st.text_input("Shareable Link (Copy Manually):", image_url)
 
         # Copy Button (Works natively in Streamlit)
         st.code(image_url, language="")
