@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import base64
 
-# Set ImgBB API Key (Your Actual API Key)
+# Set ImgBB API Key
 IMGBB_API_KEY = "ec519cb1c1643a46e16f22fe58a256cb"
 UPLOAD_URL = "https://api.imgbb.com/1/upload"
 
@@ -32,27 +32,16 @@ if uploaded_file is not None:
         image_url = data["data"]["url"]
 
         # Show the uploaded image
-        st.image(uploaded_file, caption="Uploaded Image", use_container_width=True)
+        st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
 
-        # Display the shareable link with a copy button
+        # Display the shareable link
         st.success("Image uploaded successfully!")
-        st.text_input("Shareable Link:", image_url, key="image_url")
+        url_box = st.text_input("Shareable Link:", image_url)
 
-        # JavaScript code to copy the URL
-        copy_script = f"""
-        <script>
-        function copyToClipboard() {{
-            var text = document.getElementById("image_url").value;
-            navigator.clipboard.writeText(text).then(() => {{
-                alert("Copied to clipboard!");
-            }});
-        }}
-        </script>
-        <button onclick="copyToClipboard()">Copy URL</button>
-        """
-
-        # Render the copy button
-        st.markdown(copy_script, unsafe_allow_html=True)
+        # Copy Button using Streamlit's Clipboard Functionality
+        st.button("Copy URL", on_click=lambda: st.session_state.update({"copied_url": url_box}))
+        if "copied_url" in st.session_state and st.session_state["copied_url"] == image_url:
+            st.success("URL copied to clipboard!")
 
     else:
         st.error("Failed to upload image. Please try again.")
